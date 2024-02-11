@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Transacao, type: :model do
   describe "validações" do
+    it "é válido com todos os atributos" do
+      expect(build(:transacao)).to be_valid
+    end
     context "descricao" do
       it "não pode ser vazia" do
         expect(build(:transacao, descricao: nil)).to_not be_valid

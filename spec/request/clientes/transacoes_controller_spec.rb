@@ -5,11 +5,9 @@ RSpec.describe "Cliente::TransacoesController", type: :request do
     let(:cliente) { create(:cliente, limite: 1000) }
     let(:transacao_params) do
       {
-        transacao: {
-          valor: 100,
-          tipo: "c",
-          descricao: 'Depósito'
-        }
+        valor: 100,
+        tipo: "c",
+        descricao: 'Depósito'
       }
     end
 
@@ -26,11 +24,9 @@ RSpec.describe "Cliente::TransacoesController", type: :request do
     context "quando a transacao fere a regra de limites" do
       let(:transacao_params) do
         {
-          transacao: {
-            valor: 1100,
-            tipo: 'd',
-            descricao: 'Compra'
-          }
+          valor: 1100,
+          tipo: 'd',
+          descricao: 'Compra'
         }
       end
 

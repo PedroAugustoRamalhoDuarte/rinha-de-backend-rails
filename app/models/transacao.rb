@@ -3,12 +3,12 @@ class Transacao < ApplicationRecord
 
   enum :tipo, { c: 0, d: 1 }, validate: true
 
-  validate :validar_limite, on: :create
-  validates :valor, numericality: { greater_than: 0 }, presence: true
+  validates :valor, numericality: { only_integer: true, greater_than: 0 }, presence: true
   validates :descricao, length: { in: 1..10 }, presence: true
+  validate :validar_limite, on: :create
 
   def validar_limite
-    if cliente
+    if cliente && tipo && valor
       saldo_anterior = cliente.saldo
       novo_saldo = tipo == 'c' ? saldo_anterior + valor : saldo_anterior - valor
       if novo_saldo < -cliente.limite

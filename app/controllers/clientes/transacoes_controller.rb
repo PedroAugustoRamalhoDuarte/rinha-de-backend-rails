@@ -15,6 +15,6 @@ class Clientes::TransacoesController < ApplicationController
   private
 
   def transacao_params
-    params.require(:transacao).permit(:valor, :tipo, :descricao)
+    params.permit(:valor, :tipo, :descricao)
   end
 end
