@@ -49,3 +49,6 @@ group :development do
   # gem "spring"
 end
 
+gem "opentelemetry-sdk"
+gem "opentelemetry-exporter-otlp"
+gem "opentelemetry-instrumentation-all"

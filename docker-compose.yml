@@ -13,6 +13,9 @@ services:
       - DB_HOSTNAME=db
       - RINHA_DE_BACKEND_DATABASE_PASSWORD=postgres
       - RAILS_MASTER_KEY=e6b1e1bd647883d4e9a2ee298c45b0e3
+      - OTEL_LOG_LEVEL=DEBUG
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
     depends_on:
       - db
     ports:
@@ -32,6 +35,10 @@ services:
       - DB_HOSTNAME=db
       - RINHA_DE_BACKEND_DATABASE_PASSWORD=postgres
       - RAILS_MASTER_KEY=e6b1e1bd647883d4e9a2ee298c45b0e3
+      - OTEL_LOG_LEVEL=DEBUG
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
     depends_on:
       - api01 # Sometimes api dos not runs because rails db:prepare
     ports:
