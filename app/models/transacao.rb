@@ -8,12 +8,12 @@ class Transacao < ApplicationRecord
   validate :validar_limite, on: :create
 
   def validar_limite
-    if cliente && tipo && valor
+    return if cliente.nil? && tipo.blank? && valor.blank?
+
+    if tipo == "d"
       saldo_anterior = cliente.saldo
-      novo_saldo = tipo == 'c' ? saldo_anterior + valor : saldo_anterior - valor
-      if novo_saldo < -cliente.limite
-        errors.add(:valor, 'Saldo inconsistente')
-      end
+      novo_saldo = saldo_anterior - valor
+      errors.add(:valor, 'Saldo inconsistente') if novo_saldo < -cliente.limite
     end
   end
 end

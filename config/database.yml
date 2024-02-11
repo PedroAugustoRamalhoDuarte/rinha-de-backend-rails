@@ -19,8 +19,12 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV.fetch("DB_HOSTNAME") { "localhost" } %>
-  username: postgres
-  password: abacate
+  username: rinha_de_backend
+  password: postgres
+  variables:
+    statement_timeout: 5000
+    idle_in_transaction_session_timeout: 5000
+
 
 development:
   <<: *default
