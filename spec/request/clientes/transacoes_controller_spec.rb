@@ -21,6 +21,21 @@ RSpec.describe "Cliente::TransacoesController", type: :request do
                                               })
     end
 
+    # TODO: Acredito que não ta realmente testando a concorrência
+    it 'lida com concorrência ao criar transação' do
+      # Simula solicitações concorrentes usando threads
+      threads = []
+      threads << Thread.new { post "/clientes/#{cliente.id}/transacoes", params: transacao_params }
+      threads << Thread.new { post "/clientes/#{cliente.id}/transacoes", params: transacao_params }
+
+      # Aguarda as threads concluírem
+      threads.each(&:join)
+
+      # Verifica o saldo esperado
+      expect(response).to have_http_status(:ok)
+      expect(cliente.reload.saldo).to eq(200)
+    end
+
     context "quando a transacao fere a regra de limites" do
       let(:transacao_params) do
         {
