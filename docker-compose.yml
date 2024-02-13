@@ -21,7 +21,7 @@ services:
       resources:
         limits:
           cpus: "0.4"
-          memory: "150MB"
+          memory: "130MB"
 
   api02:
     <<: *api
@@ -41,7 +41,7 @@ services:
       resources:
         limits:
           cpus: "0.4"
-          memory: "250MB"
+          memory: "230MB"
 
   nginx:
     image: nginx:latest
@@ -56,8 +56,7 @@ services:
       resources:
         limits:
           cpus: "0.1"
-          memory: "60MB"
-
+          memory: "100MB"
   db:
     image: postgres:latest
     hostname: db
@@ -67,6 +66,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
+    volumes:
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     deploy:
       resources:
         limits:
