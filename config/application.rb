@@ -32,5 +32,30 @@ module RinhaDeBackend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Removing unused middlewares
+    config.middleware.delete ActiveRecord::Migration::CheckPending
+    config.middleware.delete ActionDispatch::ShowExceptions
+    config.middleware.delete ActionDispatch::DebugExceptions
+    config.middleware.delete ActionDispatch::RemoteIp
+    config.middleware.delete ActionDispatch::Reloader
+    config.middleware.delete ActionDispatch::Callbacks
+    config.middleware.delete ActionDispatch::Static
+    config.middleware.delete ActionDispatch::Executor
+    config.middleware.delete ActionDispatch::HostAuthorization
+    config.middleware.delete ActionDispatch::ActionableExceptions
+    config.middleware.delete ActionDispatch::ServerTiming
+    config.middleware.delete ActionDispatch::RequestId
+
+    config.middleware.delete ActiveSupport::Cache::Strategy::LocalCache::Middleware
+    config.middleware.delete Rails::Rack::Logger
+
+    # Disable rails middleware
+    config.middleware.delete Rack::Sendfile
+    config.middleware.delete Rack::Head
+    config.middleware.delete Rack::ConditionalGet
+    config.middleware.delete Rack::ETag
+    config.middleware.delete Rack::Runtime
+
   end
 end
