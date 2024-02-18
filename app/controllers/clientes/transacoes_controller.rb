@@ -1,10 +1,11 @@
 class Clientes::TransacoesController < ApplicationController
   def create
     begin
-      Cliente.transaction do
-        @cliente = Cliente.find(params[:id])
+      @cliente = Cliente.find(params[:id])
+      @cliente.with_lock do
         @cliente.transacoes.create!(transacao_params)
       end
+
       render json: {
         limite: @cliente.limite,
         saldo: @cliente.saldo,
