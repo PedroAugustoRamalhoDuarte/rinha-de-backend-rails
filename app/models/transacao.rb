@@ -7,6 +7,15 @@ class Transacao < ApplicationRecord
   validates :descricao, length: { in: 1..10 }, presence: true
   validate :validar_limite, on: :create
 
+  after_create :atualizar_saldo
+
+  private
+
+  def atualizar_saldo
+    novo_saldo = tipo == "c" ? cliente.saldo + valor : cliente.saldo - valor
+    cliente.update_column(:saldo, novo_saldo) # Does not update timestamp
+  end
+
   def validar_limite
     return if cliente.nil? && tipo.blank? && valor.blank?
 

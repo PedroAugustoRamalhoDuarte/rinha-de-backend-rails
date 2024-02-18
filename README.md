@@ -1,14 +1,9 @@
 # Rinha de Backend em Rails
 
+## Profiling
 
-## TODO
+### Database
 
-- profilling (Qual parte que realmente ta gargalando?)
-- Cache (Podemos cachear de alguma forma? Principalmente o saldo para não ter que fazer queries sempre?)
-  - Cachear fazendo update
-  - Cacher com views do psql
-- Remover partes não utilizadas do rails
+#### Habilitar query Stats com PGhero
 
-# Habilitar query Stats com PGhero
-docker run -ti -e DATABASE_URL="postgres://rinha_de_backend:postgres@localhost/rinha_de_backend_production" -p 8080:8080 ankane/pghero
- 
+docker run -it --add-host=host.docker.internal:host-gateway -e DATABASE_URL="postgres://rinha_de_backend:postgres@host.docker.internal:5432/rinha_de_backend_production" -p 8080:8080 ankane/pghero

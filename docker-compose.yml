@@ -10,38 +10,39 @@ services:
       - WEB_CONCURRENCY=0
       - RAILS_MAX_THREADS=10
       - PORT=3001
-      - DB_HOSTNAME=db
+      - DB_HOSTNAME=host.docker.internal
       - RINHA_DE_BACKEND_DATABASE_PASSWORD=postgres
       - RAILS_MASTER_KEY=e6b1e1bd647883d4e9a2ee298c45b0e3
     depends_on:
       - db
     ports:
       - "3001:3001"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "130MB"
+          cpus: "0.3"
+          memory: "120MB"
 
   api02:
     <<: *api
     environment:
-      - WEB_CONCURRENCY=2
+      - WEB_CONCURRENCY=0
       - RAILS_MAX_THREADS=5
       - PORT=3002
-      - DB_HOSTNAME=db
+      - DB_HOSTNAME=host.docker.internal
       - RINHA_DE_BACKEND_DATABASE_PASSWORD=postgres
       - RAILS_MASTER_KEY=e6b1e1bd647883d4e9a2ee298c45b0e3
     depends_on:
       - api01 # Sometimes api dos not runs because rails db:prepare
     ports:
       - "3002:3002"
-    hostname: api02
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "230MB"
+          cpus: "0.3"
+          memory: "120MB"
 
   nginx:
     image: nginx:latest
@@ -55,8 +56,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.1"
-          memory: "100MB"
+          cpus: "0.2"
+          memory: "50MB"
   db:
     image: postgres:latest
     hostname: db
@@ -72,10 +73,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.6"
-          memory: "90MB"
+          cpus: "0.7"
+          memory: "210MB"
 
 networks:
-  default:
-    driver: bridge
-    name: rinha-nginx-2024q1
+  host:
+    name: host
+    external: true
