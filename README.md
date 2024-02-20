@@ -1,13 +1,5 @@
 # Rinha de Backend em Rails
 
-## TODO
-
-- profilling (Qual parte que realmente ta gargalando?)
-- Cache (Podemos cachear de alguma forma? Principalmente o saldo para não ter que fazer queries sempre?)
-    - Cachear fazendo update
-    - Cacher com triggers do psql
-- Remover partes não utilizadas do rails
-
 ## Profiling
 
 ### Database
