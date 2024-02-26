@@ -6,10 +6,7 @@ class Clientes::TransacoesController < ApplicationController
         @cliente.transacoes.create!(transacao_params)
       end
 
-      render json: {
-        limite: @cliente.limite,
-        saldo: @cliente.saldo,
-      }, status: :ok
+      render json: ClienteSerializer.new.serialize_to_json(@cliente), status: :ok
     rescue ActiveRecord::RecordInvalid => e
       render json: { errors: e.record.errors }, status: :unprocessable_entity
     end
